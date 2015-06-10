@@ -24,6 +24,8 @@ data <- data.frame(names=names, date=as.Date(as.POSIXct(dates, origin="1970-01-0
 cdata <- ddply(data, c("names", "date"), summarise, mesPerDay =sum(mess))
 
 # plot lines
+png("userActivity.png")
 ggplot(cdata, aes(x=date, y=mesPerDay, group = names, colour = names, linetype = names)) +
   geom_line(lwd = 1) +
   scale_linetype_manual(values = c(rep("solid", 5), rep("dashed", 3)))
+dev.off()

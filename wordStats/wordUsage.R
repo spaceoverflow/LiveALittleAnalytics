@@ -39,12 +39,16 @@ names.freq        <- as.vector(table(names))
 names(names.freq) <- names(table(names))
 
 # Make the Bar plolt
+png(paste("wordstats1", word,".png", sep =""))
 ggplot(as.data.frame(table(names)), aes(names, Freq)) +
   geom_bar(stat="identity") +
   ggtitle(paste("woorje", word)) 
+dev.off()
 
 # Make the time series
+png(paste("wordstats2", word,".png", sep =""))
 ggplot(as.data.frame(table(e.dates)), aes(x=e.dates, y=Freq, group=1)) +
   geom_line() +
   ggtitle(paste("woorje", word)) + 
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
+dev.off()
