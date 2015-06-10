@@ -7,19 +7,20 @@
 
 library("rjson")
 library("ggplot2")
+args <- commandArgs(trailingOnly = TRUE)
 
-word <- "kanker" # woordje is allowed to be regex
-json_file <- "/home/mad-e/Desktop/analystics/live-a-little"
+word      <- args[2] # woordje is allowed to be regex
+json.file <- args[1] # e.g. "/home/mad-e/Desktop/analystics/live-a-little"
 
-json_data <- fromJSON(file=json_file)
+json.data <- fromJSON(file=json.file)
 results <- list()  # will contain regex results
-names <- character()
-dates <- numeric()
+names   <- character()
+dates   <- numeric()
 
 containsWoordje <- function(mess, word){
   #takz message (mess) end loeks if contains de 
   #word said, then riturns name en deet
-  if(length(mess$text) != 0 && grepl(word, mess$text)){
+  if(length(mess$text) != 0 && grepl(word, mess$text, ignore.case = TRUE)){
     result <- list()
     result$name <- mess$from$print_name
     result$date <- mess$date
@@ -27,18 +28,14 @@ containsWoordje <- function(mess, word){
   }
 }
 
-for(message in json_data){
-  print(message$text)
-  print(message$from$print_name)
-  #print(message)
+for(message in json.data){
   results <- containsWoordje(message, word)
-  names <- c(names, results$name)
-  dates <- c(dates, results$date)
+  names   <- c(names, results$name)
+  dates   <- c(dates, results$date)
 }
 
-e.dates <- as.Date(as.POSIXct(dates, origin="1970-01-01"))
-print(table(names))
-names.freq <- as.vector(table(names))
+e.dates           <- as.Date(as.POSIXct(dates, origin="1970-01-01"))
+names.freq        <- as.vector(table(names))
 names(names.freq) <- names(table(names))
 
 # Make the Bar plolt
