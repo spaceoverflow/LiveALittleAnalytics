@@ -1,3 +1,7 @@
+# telegram repo
+tg/
+chatlog.json
+
 # History files
 .Rhistory
 .Rapp.history

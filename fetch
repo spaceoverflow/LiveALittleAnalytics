@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -z "$1" ];	then
+	echo "pls chat name";
+	exit;
+fi
+
+cd tg/
+bin/telegram-cli \
+    --json \
+    --disable-color \
+    --disable-readline \
+    --disable-output \
+    --wait-dialog-list \
+    --exec "history $1 10000000000" \
+  | head -n 1 \
+  > ../chatlog.json
