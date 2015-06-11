@@ -15,3 +15,7 @@ chatlog.json
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+
+.idea/
+Gemfile.lock
+live-a-little.json
